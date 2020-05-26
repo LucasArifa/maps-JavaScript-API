@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!--Meta tag aways come first-->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- Link to external link -->
+    <link rel="stylesheet" href="style.css" />
+    <!-- Maps Styles -->
+    <style>
+      #map {
+        height: 50%;
+        width: 100%;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+    <!-- Main Titlle -->
+    <title>Maps JavaScript API</title>
+  </head>
+  <body>
+    <form action="action_page.php" style="border: 1px solid #ccc;">
+      <div class="container">
+        <!-- Avatar Icon div -->
+        <div class="border">
+          <div class="icon">
+            <img class="mainImage" src="images/sign-up-icon.png" alt="Sign up Icon" />
+          </div>
+          <div class="signup-title">
+          </div>
+        </div>
+        <hr />
+        <!-- INPUT fields  -->
+        <label for="email"><b>Email</b></label>
+        <input type="email" placeholder="Enter Email" name="email" required />
+
+        <label for="psw"><b>Password</b></label>
+        <input
+          type="password"
+          placeholder="Enter Password"
+          name="psw"
+          id="psw"
+          required
+        />
+
+        <label for="psw-repeat"><b>Repeat Password</b></label>
+        <input
+          type="password"
+          placeholder="Repeat Password"
+          onformchange="check()"
+          name="pswRepeat"
+          id="pswRepeat"
+          required
+        />
+
+        <!-- Remember Me - CheckBox-->
+        <label>
+          <input type="checkbox" name="remember" style="margin-bottom: 15px;" />
+          Remember me
+        </label>
+        <br />
+
+        <!-- Aceppt Terms & Privacy (REQUIRED)-->
+        <label>
+          <input type="checkbox" name="terms&privacy" id="" required />
+          By creating an account you agree to our
+          <a href="#" style="color: dodgerblue;">&nbsp;Terms & Privacy&nbsp;</a
+          >.
+        </label>
+
+        <!-- Cancel and Sign Up Button-->
+        <div class="clearfix">
+          <button type="submit" class="signupbtn">Sign Up</button>
+        </div>
+        <div class="clearfix">
+          <button type="button" class="cancelbtn">Cancel</button>
+        </div>
+        <div class="clearfix">
+          <button
+            type="button"
+            class="getUserLocationbtn"
+            onclick="getUserLocation()"
+          >
+            Get My Location
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Map JavaScript API -->
+    <h1 align="center">My Location</h1>
+    <div id="map"></div>
+
+    <script>
+      var x = document.getElementById("map");
+      function getUserLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(initMap);
+        } else {
+          x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+      }
+
+      function initMap(position) {
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+
+        var userLocation = { lat: latitude, lng: longitude };
+        var map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 10,
+          center: userLocation,
+        });
+        var marker = new google.maps.Marker({
+          position: userLocation,
+          map: map,
+        });
+      }
+
+    </script>
+    <!-- Link to external file -->
+    <script src="repeatPassword.js"></script>
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAr6U42cPeSwZbRpnSWGJIGFuh4DvlY2XM&callback=initMap"
+      async
+      defer
+    ></script>
+  </body>
+</html>
